@@ -10,19 +10,21 @@ sealed class TodoEvent extends Equatable {
 class TodoLoadEvent extends TodoEvent {}
 
 class CreateTodo extends TodoEvent {
+  final data;
+
   // final String task;
   // final String location;
   // final String time;
 
-  // const CreateTodo(this.task, this.location, this.time);
-  // List<Object> get props => [task, location, time];
+  const CreateTodo(this.data);
+  List<Object> get props => [data];
 }
 
 class DeleteTodo extends TodoEvent {
-  final int index;
+  final Task task;
 
-  const DeleteTodo(this.index);
-  List<Object> get props => [index];
+  const DeleteTodo(this.task);
+  List<Object> get props => [task];
 }
 
 class ClearAllTodoEvent extends TodoEvent {

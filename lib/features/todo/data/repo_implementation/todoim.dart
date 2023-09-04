@@ -22,9 +22,13 @@ class TodoIm implements Todoab {
   }
 
   @override
-  Future<bool> insertData(task) async {
+  Future<bool> insertData(insertdata) async {
     final Database db = await initDB();
-    db.insert("TODO", task.toJson());
+    Task data = Task(
+        task: insertdata['Task'],
+        location: insertdata['location'],
+        time: insertdata['Time']);
+    db.insert("TODO", data.toJson());
     return true;
   }
 

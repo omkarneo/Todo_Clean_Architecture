@@ -19,45 +19,17 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       var res = getdata.call("");
       // print(res);
       emit(TodoLoadedState(res));
-      print(res);
-
-      // if (res) {
-      // } else {}
-      // final SharedPreferences prefs = await SharedPreferences.getInstance();
-      // List? alltodos = prefs.getStringList("todo");
-      // if (alltodos == null) {
-      //   prefs.setStringList("todo", []);
-      // } else {
-      //   emit(TodoLoadedState(alltodos));
-      // }
+      // print(res);
     });
     on<CreateTodo>((event, emit) async {
-      Task data = Task(task: "Task 1", location: "123456", time: "123456");
-      var res = await insert.call(data);
+      // Task data = Task(task: "Task 1", location: "123456", time: "123456");
+      var res = await insert.call(event.data);
       print(res);
-
-      // final SharedPreferences prefs = await SharedPreferences.getInstance();
-      // final List<String>? alltodo = prefs.getStringList('todo');
-      // if (alltodo == null) {
-      //   prefs.setStringList("todo", []);
-      // } else {
-      //   String encode = json.encode(data);
-      //   alltodo.add(encode);
-      //   prefs.setStringList("todo", alltodo);
     });
     on<DeleteTodo>((event, emit) async {
       Task data =
           Task(task: "Task 1", location: "123456", time: "123456", id: 1);
-      var res = await delete.call(data);
-
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
-      // final List<String>? alltodo = prefs.getStringList('todo');
-      // if (alltodo == null) {
-      //   prefs.setStringList("todo", []);
-      // } else {
-      //   alltodo.removeAt(event.index);
-      //   prefs.setStringList("todo", alltodo);
-      // }
+      var res = await delete.call(event.task);
     });
     on<UpdateTodo>((event, emit) async {
       Task data = Task(
