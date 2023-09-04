@@ -33,6 +33,7 @@ class InsertDataUseCase extends BaseUseCase {
 class DeleteDataUseCase extends BaseUseCase {
   final Todoab todo;
   DeleteDataUseCase(this.todo);
+  @override
   Future call(params) {
     return todo.deleteData(params);
   }
@@ -41,6 +42,7 @@ class DeleteDataUseCase extends BaseUseCase {
 class UpdateDataUseCase extends BaseUseCase {
   final Todoab todo;
   UpdateDataUseCase(this.todo);
+  @override
   Future call(params) {
     return todo.updateData(params);
   }

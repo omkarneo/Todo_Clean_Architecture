@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_with_cleanarch/features/todo/presentation/bloc/todo_bloc.dart';
 // import 'package:todo_with_localstorage/Pages/todopage.dart';
 import 'dart:async';
 
+import 'di_container.dart';
 import 'features/todo/presentation/page/todopage.dart';
 // import 'package:todo_with_localstorage/staticdata.dart';
 
-void main() {
+void main() async {
+  await initializeDependencies();
   runApp(const MainApp());
 }
 
@@ -14,21 +18,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Todo With Local Storage",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // colorScheme: ColorScheme.fromSeed(seedColor: customColor),
-        // useMaterial3: true,
-        // primarySwatch: customColor,
-
-        // brightness: Brightness.dark,
-        primaryColor: Color(0xFFC9F6FF),
+    return BlocProvider(
+      create: (context) => locator<TodoBloc>(),
+      child: MaterialApp(
+        title: "Todo With Local Storage",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primaryColor: Color(0xFFC9F6FF),
+        ),
+        routes: {
+          "/": (context) => const FirstPage(),
+          "/todo": (context) => const TodoList(),
+        },
       ),
-      routes: {
-        "/": (context) => const FirstPage(),
-        "/todo": (context) => const TodoList(),
-      },
     );
   }
 }

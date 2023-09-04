@@ -29,13 +29,13 @@ class TodoIm implements Todoab {
   }
 
   @override
-  Future<List<Task>?> getData() async {
+  Future<List<Task>> getData() async {
     final Database db = await initDB();
     final List<Map<String, dynamic>> data = await db.query("TODO");
 
-    if (data.isEmpty) {
-      return null;
-    }
+    // if (data.isEmpty) {
+    //   return null;
+    // }
     return List.generate(data.length, (index) => Task.fromJson(data[index]));
   }
 
