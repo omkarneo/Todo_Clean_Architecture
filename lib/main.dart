@@ -4,10 +4,8 @@ import 'package:todo_with_cleanarch/features/todo/presentation/bloc/todo_bloc.da
 import 'dart:async';
 import 'di_container.dart';
 import 'features/todo/presentation/page/todopage.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() async {
-  sqfliteFfiInit();
   await initializeDependencies();
   runApp(const MainApp());
 }
