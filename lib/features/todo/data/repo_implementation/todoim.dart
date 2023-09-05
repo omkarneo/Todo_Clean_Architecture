@@ -36,10 +36,6 @@ class TodoIm implements Todoab {
   Future<List<Task>> getData() async {
     final Database db = await initDB();
     final List<Map<String, dynamic>> data = await db.query("TODO");
-
-    // if (data.isEmpty) {
-    //   return null;
-    // }
     return List.generate(data.length, (index) => Task.fromJson(data[index]));
   }
 
@@ -61,6 +57,7 @@ class TodoIm implements Todoab {
         .update("TODO", task.toJson(), where: "id = ?", whereArgs: [task.id]);
   }
 
+  @override
   Future<void> alldelete() async {
     final Database db = await initDB();
     await db.delete("TODO");
