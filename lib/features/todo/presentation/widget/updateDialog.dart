@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/enitites/task.dart';
-// import 'package:todo_with_localstorage/Model/Task.dart';
-// import 'package:todo_with_localstorage/staticdata.dart';
-
 class UpdateDialogTodo extends StatefulWidget {
   final task;
   const UpdateDialogTodo({required this.task, super.key});
