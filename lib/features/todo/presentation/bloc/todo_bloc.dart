@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
-import '../../data/model/task.dart';
 import '../../domain/usecase/usecase.dart';
 
 part 'todo_event.dart';

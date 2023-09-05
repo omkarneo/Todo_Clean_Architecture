@@ -1,6 +1,4 @@
 import 'package:todo_with_cleanarch/core/baseusecase/baseusecase.dart';
-
-import '../enitites/task.dart';
 import '../repo/todoab.dart';
 
 class InItUseCase extends BaseUseCase {

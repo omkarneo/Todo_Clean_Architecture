@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_with_cleanarch/features/todo/presentation/bloc/todo_bloc.dart';
-// import 'package:todo_with_localstorage/Pages/todopage.dart';
 import 'dart:async';
-
 import 'di_container.dart';
 import 'features/todo/presentation/page/todopage.dart';
-// import 'package:todo_with_localstorage/staticdata.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() async {
+  sqfliteFfiInit();
   await initializeDependencies();
   runApp(const MainApp());
 }
@@ -24,7 +23,7 @@ class MainApp extends StatelessWidget {
         title: "Todo With Local Storage",
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Color(0xFFC9F6FF),
+          primaryColor: const Color(0xFFC9F6FF),
         ),
         routes: {
           "/": (context) => const FirstPage(),
