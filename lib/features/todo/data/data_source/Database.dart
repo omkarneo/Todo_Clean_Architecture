@@ -28,7 +28,6 @@ class DB {
   Future<List<Task>?> getData() async {
     final Database db = await initDB();
     final List<Map<String, dynamic>> data = await db.query("TODO");
-
     if (data.isEmpty) {
       return null;
     }

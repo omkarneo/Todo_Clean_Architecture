@@ -78,7 +78,7 @@ class _TodoListState extends State<TodoList> {
                               ),
                           itemBuilder: (context, index) {
                             var data = snapshot.data![index];
-                            print(data.runtimeType);
+
                             return ListTile(
                               shape: const RoundedRectangleBorder(
                                   side: BorderSide(color: Colors.black),
@@ -146,7 +146,7 @@ class _TodoListState extends State<TodoList> {
                                     builder: (context) => UpdateDialogTodo(
                                           task: data,
                                         ));
-                                print(todotask);
+
                                 if (todotask['Changed'] == true) {
                                   BlocProvider.of<TodoBloc>(context)
                                       .add(UpdateTodo(todotask));
@@ -174,10 +174,8 @@ class _TodoListState extends State<TodoList> {
               barrierDismissible: false,
               context: context,
               builder: (context) => const DialogTodo());
-          print(todotask);
-          if (todotask['Changed'] == true) {
-            print(todotask);
-          }
+
+          if (todotask['Changed'] == true) {}
           BlocProvider.of<TodoBloc>(context).add(CreateTodo(todotask));
           BlocProvider.of<TodoBloc>(context).add(TodoLoadEvent());
         },
