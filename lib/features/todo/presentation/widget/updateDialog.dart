@@ -44,6 +44,9 @@ class _UpdateDialogTodoState extends State<UpdateDialogTodo> {
         actions: [
           TextFormField(
             controller: task,
+            onChanged: (value) {
+              data["Changed"] = true;
+            },
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return ("Please Enter Task");
@@ -75,7 +78,7 @@ class _UpdateDialogTodoState extends State<UpdateDialogTodo> {
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   data['Task'] = task.text;
-                  data['Changed'] = true;
+                  // data['Changed'] = true;
                   data['Time'] =
                       "${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}";
                   Navigator.pop(context, data);
