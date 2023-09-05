@@ -13,7 +13,8 @@ Future<void> initializeDependencies() async {
       DeleteDataUseCase(locator<Todoab>()),
       InItUseCase(locator<Todoab>()),
       InsertDataUseCase(locator<Todoab>()),
-      UpdateDataUseCase(locator<Todoab>())));
+      UpdateDataUseCase(locator<Todoab>()),
+      AllDataDeleteUseCase(locator<Todoab>())));
 
   locator.registerLazySingleton<Todoab>(() => TodoIm());
 }

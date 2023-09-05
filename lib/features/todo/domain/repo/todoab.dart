@@ -7,4 +7,5 @@ abstract class Todoab {
   Future insertData(params);
   Future deleteData(params);
   Future updateData(params);
+  Future<void> alldelete();
 }

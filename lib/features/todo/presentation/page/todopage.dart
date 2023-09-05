@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/todo_bloc.dart';
@@ -19,39 +18,6 @@ class _TodoListState extends State<TodoList> {
     super.initState();
   }
 
-  List<Map> data = [
-    {
-      "Task": "BreakFast",
-      "Time":
-          "${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}",
-      "Dropdown": "AT HOME"
-    },
-    {
-      "Task": "Jog",
-      "Time":
-          "${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}",
-      "Dropdown": "AWAY"
-    },
-    {
-      "Task": "Preparing Task",
-      "Time":
-          "${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}",
-      "Dropdown": "AT OFFICE"
-    },
-    {
-      "Task": "Meeting at 10",
-      "Time":
-          "${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}",
-      "Dropdown": "AT OFFICE"
-    },
-    {
-      "Task": "Programming",
-      "Time":
-          "${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}",
-      "Dropdown": "AT OFFICE"
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +27,7 @@ class _TodoListState extends State<TodoList> {
           IconButton(
               onPressed: () async {
                 // Navigator.pushNamed(context, '/emp');
-                showDialog(
+                await showDialog(
                   context: context,
                   builder: (context) {
                     return AlertDialog(
@@ -91,6 +57,7 @@ class _TodoListState extends State<TodoList> {
                     );
                   },
                 );
+                BlocProvider.of<TodoBloc>(context).add(TodoLoadEvent());
               },
               icon: const Icon(Icons.remove_circle))
         ],
@@ -102,87 +69,102 @@ class _TodoListState extends State<TodoList> {
                 future: state.alltodo,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    // return Text("${snapshot}");
-                    return ListView.separated(
-                        // reverse: true,
-                        itemCount: snapshot.data.length,
-                        // itemExtent: 60,
-                        padding: const EdgeInsets.all(20),
-                        separatorBuilder: (context, index) => const SizedBox(
-                              height: 10,
-                            ),
-                        itemBuilder: (context, index) {
-                          var data = snapshot.data![index];
-                          print(data.runtimeType);
-                          return ListTile(
-                            shape: const RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.black),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0))),
-                            title: Text("${data.task}"),
-                            subtitle: Text("${data.location} ${data.time} "),
-                            leading: const Icon(Icons.add_task_rounded),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () => {
-                                showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: const Text(
-                                      "Confirmation to Delete Todo",
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                    actions: [
-                                      const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          "Want to Delete todo ?",
-                                          textAlign: TextAlign.left,
-                                        ),
+                    if (snapshot.data.length != 0) {
+                      return ListView.separated(
+                          itemCount: snapshot.data.length,
+                          padding: const EdgeInsets.all(20),
+                          separatorBuilder: (context, index) => const SizedBox(
+                                height: 10,
+                              ),
+                          itemBuilder: (context, index) {
+                            var data = snapshot.data![index];
+                            print(data.runtimeType);
+                            return ListTile(
+                              shape: const RoundedRectangleBorder(
+                                  side: BorderSide(color: Colors.black),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              title: Text("${data.task}"),
+                              subtitle: Text("${data.location} ${data.time} "),
+                              leading: const Icon(Icons.add_task_rounded),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () => {
+                                  showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(
+                                        "Confirmation to Delete Todo",
+                                        style: TextStyle(fontSize: 20),
                                       ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('Cancel')),
-                                          const SizedBox(
-                                            width: 20,
+                                      actions: [
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Want to Delete todo ?",
+                                            textAlign: TextAlign.left,
                                           ),
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                BlocProvider.of<TodoBloc>(
-                                                        context)
-                                                    .add(DeleteTodo(data));
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('Confirm')),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ).then((value) => {
-                                      BlocProvider.of<TodoBloc>(context)
-                                          .add(TodoLoadEvent())
-                                    })
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Cancel')),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            ElevatedButton(
+                                                onPressed: () {
+                                                  BlocProvider.of<TodoBloc>(
+                                                          context)
+                                                      .add(DeleteTodo(data));
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Confirm')),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ).then((value) => {
+                                        BlocProvider.of<TodoBloc>(context)
+                                            .add(TodoLoadEvent())
+                                      })
+                                },
+                              ),
+                              onLongPress: () async {
+                                Map todotask = await showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) => UpdateDialogTodo(
+                                          task: data,
+                                        ));
+                                print(todotask);
+                                if (todotask['Changed'] == true) {
+                                  BlocProvider.of<TodoBloc>(context)
+                                      .add(UpdateTodo(todotask));
+                                  BlocProvider.of<TodoBloc>(context)
+                                      .add(TodoLoadEvent());
+                                }
                               },
-                            ),
-                            onLongPress: () {},
-                          );
-                        });
+                            );
+                          });
+                    } else {
+                      return const Center(child: Text("No Todo Found"));
+                    }
                   } else {
-                    return Text("Loadins");
+                    return const Text("Loadins");
                   }
                 });
           } else {
-            return Text("Loading");
+            return const Text("Loading");
           }
         },
       ),

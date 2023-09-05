@@ -45,4 +45,9 @@ class DB {
     await db
         .update("TODO", task.toJson(), where: "id = ?", whereArgs: [task.id]);
   }
+
+  Future<void> alldelete() async {
+    final Database db = await initDB();
+    await db.delete("TODO");
+  }
 }

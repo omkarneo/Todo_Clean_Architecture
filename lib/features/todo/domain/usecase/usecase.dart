@@ -47,3 +47,12 @@ class UpdateDataUseCase extends BaseUseCase {
     return todo.updateData(params);
   }
 }
+
+class AllDataDeleteUseCase extends BaseUseCase {
+  final Todoab todo;
+  AllDataDeleteUseCase(this.todo);
+  @override
+  Future call(params) {
+    return todo.alldelete();
+  }
+}

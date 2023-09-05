@@ -50,9 +50,19 @@ class TodoIm implements Todoab {
   }
 
   @override
-  Future<void> updateData(task) async {
+  Future<void> updateData(data) async {
     final Database db = await initDB();
+    Task task = Task(
+        id: data['id'],
+        task: data['Task'],
+        time: data['Time'],
+        location: data['Location']);
     await db
         .update("TODO", task.toJson(), where: "id = ?", whereArgs: [task.id]);
+  }
+
+  Future<void> alldelete() async {
+    final Database db = await initDB();
+    await db.delete("TODO");
   }
 }

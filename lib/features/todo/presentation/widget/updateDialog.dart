@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
+import '../../domain/enitites/task.dart';
 // import 'package:todo_with_localstorage/Model/Task.dart';
 // import 'package:todo_with_localstorage/staticdata.dart';
 
 class UpdateDialogTodo extends StatefulWidget {
-  // final Task? task;
-  const UpdateDialogTodo({super.key});
+  final task;
+  const UpdateDialogTodo({required this.task, super.key});
 
   @override
   State<UpdateDialogTodo> createState() => _UpdateDialogTodoState();
@@ -16,14 +18,14 @@ class _UpdateDialogTodoState extends State<UpdateDialogTodo> {
   @override
   void initState() {
     super.initState();
-    // task.text = widget.task!.task.toString();
-    // data = {
-    //   "id": widget.task!.id,
-    //   "Task": "",
-    //   "Time": widget.task!.time.toString(),
-    //   "Location": widget.task!.location.toString(),
-    //   "Changed": false
-    // };
+    task.text = widget.task.task.toString();
+    data = {
+      "id": widget.task.id,
+      "Task": "",
+      "Time": widget.task.time.toString(),
+      "Location": widget.task.location.toString(),
+      "Changed": false
+    };
   }
 
   final formKey = GlobalKey<FormState>();
@@ -62,8 +64,6 @@ class _UpdateDialogTodoState extends State<UpdateDialogTodo> {
                 onChanged: (value) => {
                   setState(() {
                     data["Location"] = value;
-                    data['Time'] =
-                        "${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}";
                     data["Changed"] = true;
                   })
                 },
@@ -76,6 +76,8 @@ class _UpdateDialogTodoState extends State<UpdateDialogTodo> {
                 if (formKey.currentState!.validate()) {
                   data['Task'] = task.text;
                   data['Changed'] = true;
+                  data['Time'] =
+                      "${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}";
                   Navigator.pop(context, data);
                 }
               },

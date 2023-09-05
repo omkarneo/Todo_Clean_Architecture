@@ -21,7 +21,7 @@ class CreateTodo extends TodoEvent {
 }
 
 class DeleteTodo extends TodoEvent {
-  final Task task;
+  final task;
 
   const DeleteTodo(this.task);
   List<Object> get props => [task];
@@ -32,11 +32,8 @@ class ClearAllTodoEvent extends TodoEvent {
 }
 
 class UpdateTodo extends TodoEvent {
-  final String task;
-  final String location;
-  final String time;
-  final int index;
+  final task;
 
-  const UpdateTodo(this.task, this.location, this.time, this.index);
-  List<Object> get props => [task, location, time];
+  const UpdateTodo(this.task);
+  List<Object> get props => [task];
 }
